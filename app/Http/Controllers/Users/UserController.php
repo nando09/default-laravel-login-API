@@ -14,7 +14,9 @@ class UserController extends Controller
 	public function login(Request $request){
 		$user= User::where('email', $request->email)->first();
 		if (!$user || !Hash::check($request->password, $user->password)) {
-			return response('message' => ['Os credenciais estão incorretas, por favor tente novamente!']);
+			return [
+				'message' => 'Os credenciais estão incorretas, por favor tente novamente!'
+			];
 		}
 
 		$token = $user->createToken('my-app-token')->plainTextToken;
@@ -39,7 +41,8 @@ class UserController extends Controller
 				'name'			=>	['required', 'max:255'],
 				'username'		=>	['required', 'max:255', 'unique:users'],
 				'email'			=>	['required', 'max:255', 'unique:users'],
-				'id_profile'	=>	['required', 'integer'],
+				'password'		=>	['required', 'min:6', 'confirmed'],
+				'profile_id'	=>	['required', 'integer'],
 			],
 			[
 				'name.required'			=>	'Nome obrigatório!',
@@ -49,12 +52,16 @@ class UserController extends Controller
 				'username.max'			=>	'Máximo de caracteres 255 para usuario!',
 				'username.unique'		=>	'Já existe esse usuarios!',
 
+				'password.required'		=>	'Senha obrigatória!',
+				'password.min'			=>	'Senha mínimo de 6 dígitos!',
+				'password.confirmed'	=>	'Senha não confirmada!',
+
 				'email.required'		=>	'Email obrigatório!',
 				'email.max'				=>	'Máximo de caracteres 255 para email!',
 				'email.unique'			=>	'Já existe esse email!',
 
-				'id_profile.required'	=>	'Perfil obrigatório!',
-				'id_profile'			=>	'Selecione um perfil!'
+				'profile_id.required'	=>	'Perfil obrigatório!',
+				'profile_id'			=>	'Selecione um perfil!'
 			]
 		);
 
@@ -63,7 +70,9 @@ class UserController extends Controller
 			return $errors;
 		}
 
-		return User::create($data);
+		$data['password']	=	Hash::make($data['password']);
+		$user = User::create($data);
+		return $user;
 	}
 
 	public function show($id)
@@ -78,7 +87,7 @@ class UserController extends Controller
 				'name'			=>	['required', 'max:255'],
 				'username'		=>	['required', 'max:255', 'unique:users,username,'. $id . ',id'],
 				'email'			=>	['required', 'max:255', 'unique:users,email,'. $id . ',id'],
-				'id_profile'	=>	['required', 'integer'],
+				'profile_id'	=>	['required', 'integer'],
 			],
 			[
 				'name.required'			=>	'Nome obrigatório!',
@@ -92,8 +101,8 @@ class UserController extends Controller
 				'email.max'				=>	'Máximo de caracteres 255 para email!',
 				'email.unique'			=>	'Já existe esse email!',
 
-				'id_profile.required'	=>	'Perfil obrigatório!',
-				'id_profile'			=>	'Selecione um perfil!'
+				'profile_id.required'	=>	'Perfil obrigatório!',
+				'profile_id'			=>	'Selecione um perfil!'
 			]
 		);
 
@@ -103,6 +112,7 @@ class UserController extends Controller
 		}
 
 		$user = User::findOrFail($id);
+		unset($data['password']);
 		$user->update($data);
 		return $user;
 	}
