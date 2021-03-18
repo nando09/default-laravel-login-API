@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Users\ProfileController;
+use App\Http\Controllers\Users\ModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function(){
 	Route::apiResource('user', UserController::class);
 	Route::apiResource('profile', ProfileController::class);
+	Route::apiResource('module', ModuleController::class);
 });
 
 Route::post('login', [UserController::class,'login']);

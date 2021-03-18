@@ -61,7 +61,7 @@ class UserController extends Controller
 				'email.unique'			=>	'Já existe esse email!',
 
 				'profile_id.required'	=>	'Perfil obrigatório!',
-				'profile_id'			=>	'Selecione um perfil!'
+				'profile_id.integer'	=>	'Selecione um perfil!'
 			]
 		);
 
