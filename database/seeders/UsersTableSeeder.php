@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
 			'name'		=>	'Fernando Doe',
 			'email'		=>	'fernando@doe.com',
 			'username'	=>	'fernando',
+			'profile_id'=>	1,
 			'password'	=>	Hash::make('12345')
 		]);
 	}

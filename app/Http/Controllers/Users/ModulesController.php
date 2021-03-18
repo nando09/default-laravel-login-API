@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Users;
 
-use App\Models\Users\Profile;
+use App\Models\Users\Modules;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfileController extends Controller
+class ModulesController extends Controller
 {
     public function index()
     {
