@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Users\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-	Route::get('usuarios', [UserController::class,'all']);
+	Route::apiResource('usuarios', UserController::class);
 });
 
-Route::post('login', [UserController::class,'index']);
+Route::post('login', [UserController::class,'login']);
+// Route::get('get', [UserController::class,'all']);
 
