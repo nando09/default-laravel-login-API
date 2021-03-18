@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Users\ProfileController;
 use App\Http\Controllers\Users\ModuleController;
+use App\Http\Controllers\Users\RouteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 	Route::apiResource('user', UserController::class);
 	Route::apiResource('profile', ProfileController::class);
 	Route::apiResource('module', ModuleController::class);
+	Route::apiResource('route', RouteController::class);
 });
 
 Route::post('login', [UserController::class,'login']);
