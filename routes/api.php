@@ -6,6 +6,8 @@ use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Users\ProfileController;
 use App\Http\Controllers\Users\ModuleController;
 use App\Http\Controllers\Users\RouteController;
+use App\Http\Controllers\Users\RoutesUserController;
+use App\Http\Controllers\Users\RoutesProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 	Route::apiResource('profile', ProfileController::class);
 	Route::apiResource('module', ModuleController::class);
 	Route::apiResource('route', RouteController::class);
+	Route::apiResource('routes_user', RoutesUserController::class);
+	Route::apiResource('routes_profile', RoutesProfileController::class);
 });
 
 Route::post('login', [UserController::class,'login']);

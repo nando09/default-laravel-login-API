@@ -16,8 +16,6 @@ class CreateModulesTable extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('profile_id');
-            $table->foreign('profile_id')->references('id')->on('profiles');
             $table->timestamps();
         });
     }

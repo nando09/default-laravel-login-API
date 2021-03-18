@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class RoutesUser extends Model
 {
     use HasFactory;
+
+    public $incrementing = false;
+    protected $fillable = [
+		'user_id',
+		'route_id'
+    ];
+
 }
